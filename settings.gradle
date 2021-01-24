@@ -1,1 +1,5 @@
 rootProject.name = 'food-delivery'
+
+include 'food-delivery-core'
+include 'food-delivery-batch'
+include 'food-delivery-api'
