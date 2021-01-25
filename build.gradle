@@ -2,13 +2,18 @@ plugins {
     id 'org.springframework.boot' version '2.4.2'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id 'jacoco'
+}
+
+repositories {
+    mavenCentral()
 }
 
 subprojects {
-
-    apply plugin:'java'
-    apply plugin:'org.springframework.boot'
-    apply plugin:'io.spring.dependency-management'
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'jacoco'
 
     group 'com.cooker'
     version '0.0.1-SNAPSHOT'
@@ -18,8 +23,14 @@ subprojects {
         mavenCentral()
     }
 
+    jacoco {
+        toolVersion = "0.8.6"
+    }
+
     dependencies {
         implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
         compileOnly 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
@@ -27,7 +38,34 @@ subprojects {
 
     test {
         useJUnitPlatform()
+        finalizedBy 'jacocoTestReport'
     }
+
+    jacocoTestReport {
+        reports {
+            html.enabled true
+            csv.enabled false
+            xml.enabled false
+        }
+        finalizedBy 'jacocoTestCoverageVerification'
+    }
+
+    jacocoTestCoverageVerification {
+        violationRules {
+            rule {
+                enabled = true
+                element = 'CLASS'
+
+                limit {
+                    counter = 'BRANCH' // LINE 혹은 CLASS 등으로 수정
+                    value = 'COVEREDRATIO'
+                    minimum = 0.70
+                }
+
+            }
+        }
+    }
+
 }
 
 project(":food-delivery-core") {
