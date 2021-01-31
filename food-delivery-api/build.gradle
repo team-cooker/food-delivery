@@ -11,15 +11,15 @@ asciidoctor {
     dependsOn test
 }
 
-test {
-    outputs.dir snippetsDir
+task copyDocument(type: Copy) {
+    dependsOn asciidoctor
+
+    from file("build/asciidoc/html5/")
+    into file("src/main/resources/static/docs")
 }
 
-bootJar {
-    dependsOn asciidoctor
-    from("${asciidoctor.outputDir}/html5") {
-        into 'static/docs'
-    }
+build {
+    dependsOn copyDocument
 }
 
 dependencies {

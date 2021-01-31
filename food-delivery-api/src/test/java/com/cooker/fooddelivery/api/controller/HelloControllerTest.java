@@ -44,7 +44,8 @@ class HelloControllerTest {
         mockMvc.perform(get("/api/hello"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("hello"))
-                .andDo(print());
+                .andDo(print())
+                .andDo(document("hello"));
     }
 
     @Test
