@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class StoreController(
-        val storeRepository: StoreRepository
+       private val storeRepository: StoreRepository
 ) {
 
     @PostMapping("/stores")
     fun create(@RequestBody storeCreateRequest: StoreCreateRequest) {
-        storeRepository.save(Store(name = storeCreateRequest.name!!))
+        val store = storeRepository.save(Store(name = storeCreateRequest.name!!))
     }
 }
