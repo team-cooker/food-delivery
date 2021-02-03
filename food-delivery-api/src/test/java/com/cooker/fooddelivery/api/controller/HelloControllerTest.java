@@ -11,6 +11,8 @@ import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -36,15 +38,19 @@ class HelloControllerTest {
     void setUp(RestDocumentationContextProvider restDocumentationContextProvider) {
         mockMvc = MockMvcBuilders.webAppContextSetup(context)
                 .apply(documentationConfiguration(restDocumentationContextProvider))
+                .alwaysDo(print())
                 .build();
     }
 
     @Test
     void hello() throws Exception {
-        mockMvc.perform(get("/api/hello"))
+        MultiValueMap<String, String> parameterValueMap = new LinkedMultiValueMap<>();
+        parameterValueMap.add("name", "hangyeol");
+
+        mockMvc.perform(get("/hello")
+                .params(parameterValueMap))
                 .andExpect(status().isOk())
-                .andExpect(content().string("hello"))
-                .andDo(print())
+                .andExpect(content().string("hello-hangyeol"))
                 .andDo(document("hello"));
     }
 
