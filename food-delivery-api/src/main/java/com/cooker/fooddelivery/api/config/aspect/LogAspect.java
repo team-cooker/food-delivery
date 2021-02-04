@@ -50,9 +50,9 @@ public class LogAspect {
     private String getArgumentsToJsonFormat(Object[] arguments, CodeSignature signature) {
         StringBuffer stringBuffer = new StringBuffer().append("{");
         int parameterCount = signature.getParameterNames().length;
+        String[] parameterNames = signature.getParameterNames();
 
         for (int i = 0; i < parameterCount; i++) {
-            String[] parameterNames = signature.getParameterNames();
             try {
                 stringBuffer.append(objectMapper.writeValueAsString(parameterNames[i])).append(":");
                 stringBuffer.append(objectMapper.writeValueAsString(arguments[i]));
