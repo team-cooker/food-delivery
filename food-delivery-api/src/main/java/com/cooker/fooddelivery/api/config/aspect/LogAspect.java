@@ -31,43 +31,39 @@ public class LogAspect {
     }
 
     @Around("execution(* com.cooker.fooddelivery.api..*Controller.*(..))")
-    public Object logging(ProceedingJoinPoint joinPoint) throws Throwable {
-        String className = joinPoint.getTarget()
-                .getClass()
-                .getSimpleName();
-        String methodName = joinPoint.getSignature().getName();
-        String arguments = getRequestArguments(joinPoint);
+    public Object doLogging(ProceedingJoinPoint joinPoint) throws Throwable {
+        CodeSignature signature = (CodeSignature) joinPoint.getSignature();
 
-        log.info(">>> Request : {}, method({}) {}", className, methodName, arguments);
+        String className = signature.getDeclaringTypeName();
+        String methodName = signature.getName();
+        String arguments = getArgumentsToJsonFormat(joinPoint.getArgs(), signature);
+
+        log.info(">>> Request : {}({}), RequestUrl : {}, {}", className, methodName, getRequestUrl(), arguments);
 
         Object result = joinPoint.proceed();
 
-        log.info("<<< Response : {}, RequestUrl -> {}", objectMapper.writeValueAsString(result), getRequestUrl());
+        log.info("<<< Response : {}({}), {}", className, methodName, objectMapper.writeValueAsString(result));
 
         return result;
     }
 
-    private String getRequestArguments(ProceedingJoinPoint joinPoint) {
-        Object[] arguments = joinPoint.getArgs();
-        CodeSignature signature = (CodeSignature) joinPoint.getSignature();
-        return parseParametersToJsonFormat(arguments, signature);
-    }
-
-    private String parseParametersToJsonFormat(Object[] arguments, CodeSignature signature) {
+    private String getArgumentsToJsonFormat(Object[] arguments, CodeSignature signature) {
         StringBuffer stringBuffer = new StringBuffer().append("{");
         int parameterCount = signature.getParameterNames().length;
 
         for (int i = 0; i < parameterCount; i++) {
-            String name = signature.getName();
+            String[] parameterNames = signature.getParameterNames();
             try {
-                stringBuffer.append(objectMapper.writeValueAsString(name)).append(":");
+                stringBuffer.append(objectMapper.writeValueAsString(parameterNames[i])).append(":");
                 stringBuffer.append(objectMapper.writeValueAsString(arguments[i]));
 
                 if (i != parameterCount - 1) {
                     stringBuffer.append(",");
                 }
             } catch (JsonProcessingException e) {
-                log.error(e.getMessage(), e);
+                log.error("JsonProcessingException : " + e.getMessage(), e);
+            } catch (Exception e) {
+                log.error("Exception : " + e.getMessage(), e);
             }
         }
         return stringBuffer.append("}").toString();
@@ -77,6 +73,9 @@ public class LogAspect {
         String requestUrl = "";
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
 
+        if (requestAttributes == null) {
+            log.debug("not found requestAttributes");
+        }
         if (requestAttributes != null) {
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
                     .getRequest();
