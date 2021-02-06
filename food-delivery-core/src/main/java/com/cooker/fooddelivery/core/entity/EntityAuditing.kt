@@ -17,10 +17,10 @@ abstract class EntityAuditing {
     @CreatedDate
     @Column(nullable = false)
     lateinit var createdAt: Instant
-        private set
+        protected set
 
     @LastModifiedDate
     @Column(nullable = false)
     lateinit var updatedAt: Instant
-        private set
+        protected set
 }
