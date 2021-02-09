@@ -11,12 +11,12 @@ documentation snippets.
 
 One showing how to make a request using cURL:
 
-include::{snippets}/hello/curl-request.adoc[]
+include::../../../build/generated-snippets/hello-controller-test/hello/curl-request.adoc[]
 
 One showing the HTTP request:
 
-include::{snippets}/hello/http-request.adoc[]
+include::../../../build/generated-snippets/hello-controller-test/hello/http-request.adoc[]
 
 And one showing the HTTP response:
 
-include::{snippets}/hello/http-response.adoc[]
+include::../../../build/generated-snippets/hello-controller-test/hello/http-response.adoc[]

@@ -1,9 +1,19 @@
 plugins {
-    id 'org.asciidoctor.convert' version "1.5.9.2"
+    id 'org.asciidoctor.convert' version '2.4.0'
 }
 
 ext {
-    snippetsDir = file('build/generated-snippets')
+    set('snippetsDir', file("build/generated-snippets"))
+}
+
+dependencies {
+    asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+}
+
+test {
+    outputs.dir snippetsDir
 }
 
 asciidoctor {
@@ -20,10 +30,4 @@ task copyDocument(type: Copy) {
 
 build {
     dependsOn copyDocument
-}
-
-dependencies {
-    asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
-
-    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 }
