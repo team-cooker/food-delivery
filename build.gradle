@@ -27,12 +27,6 @@ subprojects {
     version '0.0.1-SNAPSHOT'
     sourceCompatibility = '11'
 
-    allOpen {
-        annotation("javax.persistence.Entity")
-        annotation("javax.persistence.Embeddable")
-        annotation("javax.persistence.MappedSuperclass")
-    }
-
     jacoco {
         toolVersion = "0.8.6"
     }

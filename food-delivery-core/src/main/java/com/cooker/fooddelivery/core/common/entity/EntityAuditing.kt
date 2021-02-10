@@ -1,4 +1,4 @@
-package com.cooker.fooddelivery.core.entity
+package com.cooker.fooddelivery.core.common.entity
 
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
