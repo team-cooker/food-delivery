@@ -3,22 +3,28 @@ package com.cooker.fooddelivery.core.user.dto;
 import com.cooker.fooddelivery.core.user.entity.LoginType;
 import com.cooker.fooddelivery.core.user.entity.Role;
 import com.cooker.fooddelivery.core.user.entity.User;
+import org.springframework.util.Assert;
 
 public class UserRegisterDto {
 
+    private static final String EMPTY_USER_ATTRIBUTE_MESSAGE = "user %s must not be empty";
+    // TODO : Validation
     private final String name;
     private final String email;
     private final String nickname;
     private final String password;
-    private final LoginType loginType;
     private final String birthDay;
 
-    public UserRegisterDto(Builder builder) {
+    private UserRegisterDto(Builder builder) {
+        Assert.hasText(builder.name, String.format(EMPTY_USER_ATTRIBUTE_MESSAGE, "name"));
+        Assert.hasText(builder.email, String.format(EMPTY_USER_ATTRIBUTE_MESSAGE, "email"));
+        Assert.hasText(builder.nickname, String.format(EMPTY_USER_ATTRIBUTE_MESSAGE, "nickname"));
+        Assert.hasText(builder.password, String.format(EMPTY_USER_ATTRIBUTE_MESSAGE, "password"));
+
         this.name = builder.name;
         this.email = builder.email;
         this.nickname = builder.nickname;
         this.password = builder.password;
-        this.loginType = builder.loginType;
         this.birthDay = builder.birthDay;
     }
 
@@ -42,10 +48,6 @@ public class UserRegisterDto {
         return password;
     }
 
-    public LoginType getPlatform() {
-        return loginType;
-    }
-
     public String getBirthDay() {
         return birthDay;
     }
@@ -67,7 +69,6 @@ public class UserRegisterDto {
         private String email;
         private String nickname;
         private String password;
-        private LoginType loginType;
         private String birthDay;
 
         private Builder() {
@@ -90,11 +91,6 @@ public class UserRegisterDto {
 
         public Builder password(String password) {
             this.password = password;
-            return this;
-        }
-
-        public Builder loginType(LoginType loginType) {
-            this.loginType = loginType;
             return this;
         }
 

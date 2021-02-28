@@ -77,7 +77,7 @@ public class User extends BaseEntity {
         return password;
     }
 
-    public LoginType getPlatform() {
+    public LoginType getLoginType() {
         return loginType;
     }
 
