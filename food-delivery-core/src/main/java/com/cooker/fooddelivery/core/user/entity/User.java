@@ -93,7 +93,7 @@ public class User extends BaseEntity {
         return token;
     }
 
-    protected static class Builder {
+    public static class Builder {
         private String name;
         private String email;
         private String nickname;
@@ -126,7 +126,7 @@ public class User extends BaseEntity {
             return this;
         }
 
-        public Builder platform(LoginType loginType) {
+        public Builder loginType(LoginType loginType) {
             this.loginType = loginType;
             return this;
         }
