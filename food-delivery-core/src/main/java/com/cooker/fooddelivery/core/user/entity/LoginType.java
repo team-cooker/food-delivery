@@ -1,11 +1,11 @@
 package com.cooker.fooddelivery.core.user.entity;
 
-public enum Platform {
+public enum LoginType {
     EMAIL("EMAIL");
 
     private final String platform;
 
-    Platform(String platform) {
+    LoginType(String platform) {
         this.platform = platform;
     }
 

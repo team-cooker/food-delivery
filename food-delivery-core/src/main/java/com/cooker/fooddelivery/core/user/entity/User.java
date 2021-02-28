@@ -7,57 +7,52 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 
 @Entity
 public class User extends BaseEntity {
 
-    private static final String EMPTY_USER_NAME_MESSAGE = "user name must not be empty";
-    private static final String EMPTY_USER_EMAIL_MESSAGE = "user email must not be empty";
-    private static final String EMPTY_USER_NICKNAME_MESSAGE = "user nickname must not be empty";
-    private static final String EMPTY_USER_PASSWORD_MESSAGE = "user password must not be empty";
+    private static final String EMPTY_USER_ATTRIBUTE_MESSAGE = "user %s must not be empty";
 
-    @NotEmpty
     @Column(nullable = false, length = 20)
     private String name;
 
-    @NotEmpty
     @Column(nullable = false, length = 50, unique = true)
     private String email;
 
-    @NotEmpty
     @Column(nullable = false, length = 15)
     private String nickname;
 
-    @NotEmpty
     @Column(nullable = false, length = 20)
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private Platform platform;
+    private LoginType loginType;
 
     private String birthDay;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    private String token;
+
     public User() {
     }
 
     private User(Builder builder) {
-        Assert.hasText(builder.name, EMPTY_USER_NAME_MESSAGE);
-        Assert.hasText(builder.email, EMPTY_USER_EMAIL_MESSAGE);
-        Assert.hasText(builder.nickname, EMPTY_USER_NICKNAME_MESSAGE);
-        Assert.hasText(builder.password, EMPTY_USER_PASSWORD_MESSAGE);
+        Assert.hasText(builder.name, String.format(EMPTY_USER_ATTRIBUTE_MESSAGE, "name"));
+        Assert.hasText(builder.email, String.format(EMPTY_USER_ATTRIBUTE_MESSAGE, "email"));
+        Assert.hasText(builder.nickname, String.format(EMPTY_USER_ATTRIBUTE_MESSAGE, "nickname"));
+        Assert.hasText(builder.password, String.format(EMPTY_USER_ATTRIBUTE_MESSAGE, "password"));
 
         this.name = builder.name;
         this.email = builder.email;
         this.nickname = builder.nickname;
         this.password = builder.password;
-        this.platform = builder.platform;
+        this.loginType = builder.loginType;
         this.birthDay = builder.birthDay;
         this.role = builder.role;
+        this.token = builder.token;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
@@ -82,8 +77,8 @@ public class User extends BaseEntity {
         return password;
     }
 
-    public Platform getPlatform() {
-        return platform;
+    public LoginType getPlatform() {
+        return loginType;
     }
 
     public String getBirthDay() {
@@ -94,14 +89,19 @@ public class User extends BaseEntity {
         return role;
     }
 
+    public String getToken() {
+        return token;
+    }
+
     protected static class Builder {
         private String name;
         private String email;
         private String nickname;
         private String password;
-        private Platform platform;
+        private LoginType loginType;
         private String birthDay;
         private Role role;
+        private String token;
 
         private Builder() {
         }
@@ -126,8 +126,8 @@ public class User extends BaseEntity {
             return this;
         }
 
-        public Builder platform(Platform platform) {
-            this.platform = platform;
+        public Builder platform(LoginType loginType) {
+            this.loginType = loginType;
             return this;
         }
 
@@ -138,6 +138,11 @@ public class User extends BaseEntity {
 
         public Builder role(Role role) {
             this.role = role;
+            return this;
+        }
+
+        public Builder token(String token) {
+            this.token = token;
             return this;
         }
 
