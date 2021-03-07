@@ -437,42 +437,28 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
-<div class="paragraph">
-<p>Sample application demonstrating how to use Spring REST Docs with JUnit 5.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8080/api/v1/stores' -i -X POST \
+    -H 'Content-Type: application/json;charset=UTF-8' \
+    -H 'Accept: application/json' \
+    -d '{"store":{"name":"starbucks","category":"CAFE_DESSERT","bizRegNo":"1234567891","tel":"01012345678","address":"진접 맥도날드 옆","description":null,"minOrderAmount":10000,"deliveryTip":2000,"alcoholicBeverageYn":"N","meetPayType":"CASH_AND_CARD","customerReceiveType":"TAKE_OUT"},"businessHour":{"weekdayOpenAt":"10:30:30","weekdayCloseAt":"20:50:00","weekendOpenAt":"12:00:00","weekendCloseAt":"23:59:59.999999999","holidayOpenYn":"N"},"deliveryAreas":[{"type":"RADIUS","radius":"122.20","region":null}],"regularHolidays":[{"week":"FIFTH_WEEK","day":"MONDAY"}]}'</code></pre>
 </div>
-<div class="paragraph">
-<p><code>SampleJUnit5ApplicationTests</code> makes a call to a very simple service and produces three
-documentation snippets.</p>
-</div>
-<div class="paragraph">
-<p>One showing how to make a request using cURL:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8080/hello?name=hangyeol' -i -X GET</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>One showing the HTTP request:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /hello?name=hangyeol HTTP/1.1
-Host: localhost:8080</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>And one showing the HTTP response:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
-Content-Type: application/json
-Content-Length: 27
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/v1/stores HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Accept: application/json
+Content-Length: 568
+Host: localhost:8080
 
-{
-  "name" : "hangyeol"
-}</code></pre>
+{"store":{"name":"starbucks","category":"CAFE_DESSERT","bizRegNo":"1234567891","tel":"01012345678","address":"진접 맥도날드 옆","description":null,"minOrderAmount":10000,"deliveryTip":2000,"alcoholicBeverageYn":"N","meetPayType":"CASH_AND_CARD","customerReceiveType":"TAKE_OUT"},"businessHour":{"weekdayOpenAt":"10:30:30","weekdayCloseAt":"20:50:00","weekendOpenAt":"12:00:00","weekendCloseAt":"23:59:59.999999999","holidayOpenYn":"N"},"deliveryAreas":[{"type":"RADIUS","radius":"122.20","region":null}],"regularHolidays":[{"week":"FIFTH_WEEK","day":"MONDAY"}]}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK</code></pre>
 </div>
 </div>
 </div>
@@ -480,7 +466,7 @@ Content-Length: 27
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-09 22:02:38 KST
+Last updated 2021-03-06 19:23:00 KST
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
