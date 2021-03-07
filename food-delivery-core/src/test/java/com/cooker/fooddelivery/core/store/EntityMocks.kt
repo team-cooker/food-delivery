@@ -13,7 +13,7 @@ object EntityMocks {
     fun storeMock(): Store {
         return Store(
             name = "starbucks",
-            category = FoodCategoryType.CAFE_DESSERT,
+            foodCategory =  FoodCategoryType.CAFE_DESSERT,
             bizRegNo = "1234567891",
             tel = "01012345678",
             address = "진접 맥도날드 옆",

@@ -16,7 +16,7 @@ class Store(
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    val category: FoodCategoryType,
+    val foodCategory: FoodCategoryType,
 
     @Column(nullable = false)
     val bizRegNo: String,

@@ -57,8 +57,8 @@ internal class StoreControllerTest {
                     requestFields(
                         fieldWithPath("store.name")
                             .description("가게 이름"),
-                        fieldWithPath("store.category")
-                            .description("가게 카테고리"),
+                        fieldWithPath("store.foodCategory")
+                            .description("가게 음식 카테고리"),
                         fieldWithPath("store.bizRegNo")
                             .description("사업자 번호"),
                         fieldWithPath("store.tel")
@@ -109,7 +109,7 @@ internal class StoreControllerTest {
         StoreCreateRequest(
             store = StoreDto(
                 name = "starbucks",
-                category = FoodCategoryType.CAFE_DESSERT,
+                foodCategory = FoodCategoryType.CAFE_DESSERT,
                 bizRegNo = "1234567891",
                 tel = "01012345678",
                 address = "진접 맥도날드 옆",

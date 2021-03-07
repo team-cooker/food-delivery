@@ -18,7 +18,7 @@ data class StoreCreateRequest(
 
 data class StoreDto(
     var name: String,
-    val category: FoodCategoryType,
+    val foodCategory: FoodCategoryType,
     val bizRegNo: String,
     var tel: String,
     var address: String,
@@ -32,7 +32,7 @@ data class StoreDto(
     fun toStore(): Store {
         return Store(
             name = name,
-            category = category,
+            foodCategory = foodCategory,
             bizRegNo = bizRegNo,
             tel = tel,
             address = address,
