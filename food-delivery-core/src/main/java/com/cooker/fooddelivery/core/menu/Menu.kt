@@ -7,9 +7,6 @@ import javax.persistence.*
 @Entity
 class Menu(
 
-    @ManyToOne(optional = false)
-    val menuCategory: MenuCategory,
-
     @Column(nullable = false)
     val name: String,
 
@@ -28,6 +25,9 @@ class Menu(
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    val mainMenuYn: YnType
+    val mainMenuYn: YnType,
+
+    @ManyToOne(optional = false)
+    val menuCategory: MenuCategory
 
 ) : EntityAuditing()
